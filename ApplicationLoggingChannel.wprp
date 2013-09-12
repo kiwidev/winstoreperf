@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<WindowsPerformanceRecorder
+    Author="Mark Young"
+    Version="1.0"
+    >
+  <Profiles>
+   <EventCollector
+        Id="WPAEventCollector"
+        Name="XAMLDevDiagnostics">
+     <BufferSize
+       Value="128"/> 
+     <Buffers
+       Value="64"/>
+    </EventCollector>
+
+    <Profile
+        Description="Application LoggingChannel"
+        DetailLevel="Verbose"
+        Id="LoggingChannel.Verbose.File"
+        LoggingMode="File"
+        Name="LoggingChannel"
+        >
+      <ProblemCategories>
+        <ProblemCategory Value="First Level Triage"/>
+      </ProblemCategories>
+      <Collectors>
+        <EventCollectorId Value="WPAEventCollector">
+          <EventProviders>
+            <EventProvider Name="Microsoft-Windows-Diagnostics-LoggingChannel" Id="Microsoft-Windows-WPA" Stack="true"></EventProvider>
+          </EventProviders>
+        </EventCollectorId>
+       </Collectors>
+    </Profile>
+    <Profile
+        Base="LoggingChannel.Verbose.File"
+        Description="Application LoggingChannel"
+        DetailLevel="Verbose"
+        Id="LoggingChannel.Verbose.Memory"
+        LoggingMode="Memory"
+        Name="LoggingChannel"
+        >
+      <Collectors Operation="Add">
+        <EventCollectorId Value="WPAEventCollector">
+          <Buffers
+              PercentageOfTotalMemory="true"
+              Value="5"
+              />
+        </EventCollectorId>
+      </Collectors>
+    </Profile>
+  </Profiles>
+</WindowsPerformanceRecorder>
